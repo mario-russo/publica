@@ -2,7 +2,6 @@ package br.com.russomario.publica.dominio;
 
 import java.util.List;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -11,50 +10,82 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+/**
+ * Classe do usuario
+ * 
+ * Atributos
+ * private Long id;
+ * private String nome;
+ * private String email;
+ */
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // @NotNull
     private String nome;
-    // @NotNull
     private String email;
 
-    @OneToMany(mappedBy = "usuario" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Publicacao> publicacao;
 
     public Usuario() {
     }
 
+    /**
+     * @param nome
+     * @param email
+     */
     public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
     }
 
+    /**
+     * @return id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @return nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * @return
+     *         E-mail
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * @return
+     */
     public List<Publicacao> getPublicacao() {
         return publicacao;
     }

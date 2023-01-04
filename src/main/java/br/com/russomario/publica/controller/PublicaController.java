@@ -3,7 +3,6 @@ package br.com.russomario.publica.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import br.com.russomario.publica.dominio.Publicacao;
 import br.com.russomario.publica.dominio.Usuario;
 import br.com.russomario.publica.dominio.DTO.request.PublicacaoRequestDTO;
@@ -27,11 +26,24 @@ public class PublicaController {
     private final PublicacaoRepository repository;
     private final UsuarioRepository usuarioRepository;
 
+    /**
+     * @param repository
+     * @param usuarioRepository
+     */
     public PublicaController(PublicacaoRepository repository, UsuarioRepository usuarioRepository) {
         this.repository = repository;
         this.usuarioRepository = usuarioRepository;
     }
 
+    /**
+     * 
+     * @param id
+     * @return
+     *         PublicacaoRespostaDTO(
+     *         Long id,
+     *         String descricao,
+     *         Usuario usuario}
+     */
     @GetMapping("/{id}")
     public PublicacaoRespostaDTO buscaId(@PathVariable Long id) {
         Optional<Publicacao> publicacao = repository.findById(id);
@@ -41,18 +53,28 @@ public class PublicaController {
         return publica;
     }
 
+   
+    /**
+     * @param publica
+     * @return Publicacao.class
+     */
     @PostMapping
     public Publicacao salva(@RequestBody PublicacaoRequestDTO publica) {
-        Optional<Usuario >usuarioId = usuarioRepository.findById(publica.getId());
+        Optional<Usuario> usuarioId = usuarioRepository.findById(publica.getId());
         Publicacao publicacao = new Publicacao(publica.getDescricao(), usuarioId.get());
         Publicacao respostaPublicacao = repository.save(publicacao);
         return respostaPublicacao;
     }
 
+    /**
+     * @return List<PublicacaoRespostaDTO>
+     */
     @GetMapping
-    public List<PublicacaoRespostaDTO> listaTodos(){
+    public List<PublicacaoRespostaDTO> listaTodos() {
         List<Publicacao> publicacao = repository.findAll();
-        List<PublicacaoRespostaDTO> publicacaoDTO = publicacao.stream().map(x-> new PublicacaoRespostaDTO(x.getId(),x.getDescricao(),x.getUsuario())).collect(Collectors.toList()); 
+        List<PublicacaoRespostaDTO> publicacaoDTO = publicacao.stream()
+                .map(x -> new PublicacaoRespostaDTO(x.getId(), x.getDescricao(), x.getUsuario()))
+                .collect(Collectors.toList());
         return publicacaoDTO;
     }
 

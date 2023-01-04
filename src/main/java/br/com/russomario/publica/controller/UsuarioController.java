@@ -23,17 +23,29 @@ public class UsuarioController {
 
     private final UsuarioRepository repository;
 
+    /**
+     * @param repository
+     */
     public UsuarioController(UsuarioRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * @return UsuarioRespostaDTO list
+     */
     @GetMapping
     public List<UsuarioRespostaDTO> listaTodos() {
-      List <Usuario> reposta =  repository.findAll();
-      List<UsuarioRespostaDTO> usuario = reposta.stream().map(x-> new UsuarioRespostaDTO(x.getId(), x.getNome(), x.getEmail(), x.getPublicacao())).collect(Collectors.toList());
-      return usuario;
+        List<Usuario> reposta = repository.findAll();
+        List<UsuarioRespostaDTO> usuario = reposta.stream()
+                .map(x -> new UsuarioRespostaDTO(x.getId(), x.getNome(), x.getEmail(), x.getPublicacao()))
+                .collect(Collectors.toList());
+        return usuario;
     }
 
+    /**
+     * @param id
+     * @return Usuario
+     */
     @GetMapping("/{id}")
     public Usuario BuscaId(@PathVariable Long id) {
         Optional<Usuario> repostaUsuario = repository.findById(id);
@@ -41,9 +53,13 @@ public class UsuarioController {
 
     }
 
+    /**
+     * @param usuarioDto
+     * @return Salvo com Sucesso
+     */
     @PostMapping
     public String salva(@RequestBody UsuarioRequestDTO usuarioDto) {
-        Usuario usuario = new Usuario(usuarioDto.getNome(),usuarioDto.getEmail());
+        Usuario usuario = new Usuario(usuarioDto.getNome(), usuarioDto.getEmail());
         Usuario usuarioSalvo = repository.save(usuario);
         if (Objects.isNull(usuarioSalvo)) {
             return "Erro Ao Salvar";

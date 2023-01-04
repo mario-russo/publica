@@ -1,6 +1,5 @@
 package br.com.russomario.publica.dominio;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -9,8 +8,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+/**
+ * Classe de Publicão de post
+ * 
+ * Atributo
+ * 
+ * Long id;
+ * String descricao;
+ * Usuario usuario;
+ */
 @Entity
+@Table(name = "publicacao")
 public class Publicacao {
 
     @Id
@@ -26,27 +36,48 @@ public class Publicacao {
     public Publicacao() {
     }
 
+    /**
+     * @param descricao
+     * @param usuario
+     */
     public Publicacao(String descricao, Usuario usuario) {
         this.descricao = descricao;
         this.usuario = usuario;
     }
 
+    /**
+     * @return id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Descrição da Publicação
+     * @return descição
+     */
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     * @param descricao
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
+    /**
+     * 
+     * @return usuario
+     */
     public Usuario getUsuario() {
         return usuario;
     }
 
+    /**
+     * @param usuario
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
