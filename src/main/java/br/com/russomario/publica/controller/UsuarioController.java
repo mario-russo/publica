@@ -3,6 +3,7 @@ package br.com.russomario.publica.controller;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.russomario.publica.dominio.Usuario;
+import br.com.russomario.publica.dominio.DTO.request.UsuarioRequestDTO;
+import br.com.russomario.publica.dominio.DTO.resposta.UsuarioRespostaDTO;
 import br.com.russomario.publica.repository.UsuarioRepository;
 
 @RestController
@@ -25,8 +28,10 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> listaTodos() {
-        return repository.findAll();
+    public List<UsuarioRespostaDTO> listaTodos() {
+      List <Usuario> reposta =  repository.findAll();
+      List<UsuarioRespostaDTO> usuario = reposta.stream().map(x-> new UsuarioRespostaDTO(x.getId(), x.getNome(), x.getEmail(), x.getPublicacao())).collect(Collectors.toList());
+      return usuario;
     }
 
     @GetMapping("/{id}")
@@ -37,7 +42,8 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public String salva(@RequestBody Usuario usuario) {
+    public String salva(@RequestBody UsuarioRequestDTO usuarioDto) {
+        Usuario usuario = new Usuario(usuarioDto.getNome(),usuarioDto.getEmail());
         Usuario usuarioSalvo = repository.save(usuario);
         if (Objects.isNull(usuarioSalvo)) {
             return "Erro Ao Salvar";

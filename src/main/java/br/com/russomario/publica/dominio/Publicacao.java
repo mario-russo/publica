@@ -1,7 +1,7 @@
 package br.com.russomario.publica.dominio;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,13 +14,13 @@ import jakarta.persistence.ManyToOne;
 public class Publicacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = true)
-    @JsonManagedReference(value = "usuario" )
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference
     private Usuario usuario;
 
     public Publicacao() {
