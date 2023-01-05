@@ -63,4 +63,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuario;
     }
 
+    public Usuario usuarioEntity(Long id){
+        return repository.findById(id).get();
+
+    }
+
 }
