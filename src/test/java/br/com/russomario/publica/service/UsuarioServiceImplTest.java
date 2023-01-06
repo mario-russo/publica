@@ -46,9 +46,9 @@ public class UsuarioServiceImplTest {
                 usuario.getPublicacao());
     }
 
-    @DisplayName("deve retorna o um usuário pelo id")
+    @DisplayName("Deve retorna o um quando for passado um id")
     @Test
-    void testBuscaId() throws Exception {
+    void BuscaIdTeste_retornaUsuario_dadoUmId() throws Exception {
 
         Optional<Usuario> usuarioOptional;
         usuarioOptional = Optional.of(usuario);
@@ -62,9 +62,9 @@ public class UsuarioServiceImplTest {
 
     }
 
-    @DisplayName("Deve lista os Usuários ")
+    @DisplayName("Deve Listar todos Usuários")
     @Test
-    void testListaTodos() {
+    void ListaTodosTest_retornaListaDeUsuarios() {
 
         List<UsuarioRespostaDTO> usuarioRespostaDTOs;
 
@@ -76,11 +76,13 @@ public class UsuarioServiceImplTest {
         assertEquals(usuario.getEmail(), usuarioRespostaDTOs.get(0).getEmail());
         assertEquals(usuario.getNome(), usuarioRespostaDTOs.get(0).getNome());
 
+        verify(repository).findAll();
+
     }
 
-    @DisplayName("Deve salvar o Usuario com sucesso ")
+    @DisplayName("Deve salvar o Usuario com sucesso")
     @Test
-    void testSalvar() throws Exception {
+    void SalvarTeste_retornaUmUsuario_dadoUmUsuarioDTO() throws Exception {
 
         when(repository.save(any())).thenReturn(usuario);
 
@@ -92,22 +94,20 @@ public class UsuarioServiceImplTest {
         assertEquals(UsuarioRespostaDTO.class, usuarioRespostaDTO.getClass());
         assertEquals("mario", usuarioRespostaDTO.getNome());
         assertEquals("mario@email", usuarioRespostaDTO.getEmail());
-        
+        }
 
-    }
-
-    @DisplayName("Deve retorna uma mensagemde erro por passar o objeto null")
+    @DisplayName("Deve retorna uma mensagem de erro quando o objeto é null")
     @Test
-    void testExceptionAoSalvar() throws Exception{
+    void ExceptionAoSalvarTeste_retornaUmaMensagemDeErro_dadoUmUsuariNullo() throws Exception{
 
         when(repository.save(any())).thenReturn(null);
 
         assertThrowsExactly(Exception.class,()-> usuarioServiceImpl.salvar(usuarioRequestDTO), "Erro o Salva Usuário");
     }
 
-    @DisplayName("Deve retorna uma Classe de Usuário")
+    @DisplayName("Deve retorna uma Entidade de usuario")
     @Test
-    void testUsuarioEntity() {
+    void testUsuarioEntity_retornaUmaEntidadeDeUsuario() {
         Optional<Usuario> usuarioOptional;
         usuarioOptional = Optional.of(usuario);
 

@@ -50,9 +50,9 @@ public class PublicacaoServiceImplTest {
 
     }
 
-    @DisplayName("Deve retorna uma publicação")
+    @DisplayName("Deve retorna uma publicação quando passar um id")
     @Test
-    void testBuscaId() {
+    void buscaIdTeste_retornaUmaPublicacao_dadoUmId() {
 
         publicacao = new Publicacao("API Spring", usuario);
 
@@ -64,11 +64,13 @@ public class PublicacaoServiceImplTest {
         var reposta = publicacaoServiceImpl.buscaId(anyLong());
 
         assertEquals(PublicacaoRespostaDTO.class, reposta.getClass());
+
+        verify(repository).findById(anyLong());
     }
 
     @DisplayName("Deve Retorna Uma Lista De Publicação")
     @Test
-    void testBuscaTodos() {
+    void buscaTodosTeste_retornaUmaListaDepublicacao() {
         publicacao = new Publicacao("API Spring", usuario);
 
         when(repository.findAll()).thenReturn(List.of(publicacao));
@@ -83,7 +85,7 @@ public class PublicacaoServiceImplTest {
 
     @DisplayName("deve salvar uma Publicação")
     @Test
-    void testSalvar() {
+    void salvarTeste_retornaUmaPublicacaoSalva_dadoUmaPublicacaoDTO() {
 
         publicacaoRequestDTO = new PublicacaoRequestDTO("Api", (long) 1);
         publicacao = new Publicacao(publicacaoRequestDTO.getDescricao(), usuario);
