@@ -54,10 +54,11 @@ public class PublicacaoServiceImpl implements PublicacaoService {
     public List<PublicacaoRespostaDTO> buscaTodos() {
 
         List<Publicacao> publicacao = repository.findAll();
-        
+
         List<PublicacaoRespostaDTO> publicacaoDTO = publicacao.stream()
                 .map(x -> new PublicacaoRespostaDTO(x.getId(), x.getDescricao(), x.getUsuario()))
                 .collect(Collectors.toList());
+
         return publicacaoDTO;
     }
 
