@@ -2,6 +2,8 @@ package br.com.russomario.publica.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class UsuarioController {
     private final UsuarioService service;
 
     /**
-     * @param repository
+     * @param service
      */
     public UsuarioController(UsuarioService service) {
         this.service = service;
@@ -30,8 +32,9 @@ public class UsuarioController {
      * @return UsuarioRespostaDTO list
      */
     @GetMapping
-    public List<UsuarioRespostaDTO> listaTodos() {
-        return service.listaTodos();
+    public ResponseEntity<List<UsuarioRespostaDTO>> listaTodos() {
+        var usuarioLista = service.listaTodos();
+        return ResponseEntity.status(200).body(usuarioLista);
     }
 
     /**
@@ -39,9 +42,9 @@ public class UsuarioController {
      * @return Usuario
      */
     @GetMapping("/{id}")
-    public UsuarioRespostaDTO BuscaId(@PathVariable Long id) {
-        return service.BuscaId(id);
-
+    public ResponseEntity<UsuarioRespostaDTO> BuscaId(@PathVariable Long id) {
+        var usuario = service.BuscaId(id);
+        return ResponseEntity.ok().body(usuario);
     }
 
     /**
@@ -50,7 +53,8 @@ public class UsuarioController {
      * @throws Exception
      */
     @PostMapping
-    public UsuarioRespostaDTO salva(@RequestBody UsuarioRequestDTO usuarioDto) throws Exception {
-        return service.salvar(usuarioDto);
+    public ResponseEntity<UsuarioRespostaDTO> salva(@RequestBody UsuarioRequestDTO usuarioDto) throws Exception {
+        var usuarioCreated = service.salvar(usuarioDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCreated);
     }
 }
