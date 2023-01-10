@@ -8,6 +8,10 @@ public class UsuarioRequestDTO {
         this.nome = nome;
         this.email = email;
     }
+    
+    public UsuarioRequestDTO() {
+    }
+
     public String getNome() {
         return nome;
     }
