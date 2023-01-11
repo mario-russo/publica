@@ -9,6 +9,7 @@ import br.com.russomario.publica.service.PublicacaoServiceImpl;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +39,9 @@ public class PublicaController {
      *         Usuario usuario}
      */
     @GetMapping("/{id}")
-    public PublicacaoRespostaDTO buscaId(@PathVariable Long id) {
-        return service.buscaId(id);
+    public ResponseEntity<PublicacaoRespostaDTO> buscaId(@PathVariable Long id) {
+        var publica = service.buscaId(id);
+        return ResponseEntity.ok().body(publica);
     }
 
     /**
@@ -49,16 +51,18 @@ public class PublicaController {
      * @return PublicacaoRespostaDTO.class
      */
     @PostMapping
-    public PublicacaoRespostaDTO salva(@RequestBody PublicacaoRequestDTO publica) {
-        return service.salvar(publica);
+    public ResponseEntity<PublicacaoRespostaDTO> salva(@RequestBody PublicacaoRequestDTO publicaDTO) {
+        var publica = service.salvar(publicaDTO);
+        return ResponseEntity.created(null).body(publica);
     }
 
     /**
      * @return List<PublicacaoRespostaDTO>
      */
     @GetMapping
-    public List<PublicacaoRespostaDTO> listaTodos() {
-        return service.buscaTodos();
+    public ResponseEntity<List<PublicacaoRespostaDTO>> listaTodos() {
+        var publica = service.buscaTodos();
+        return ResponseEntity.ok().body(publica);
     }
 
 }
