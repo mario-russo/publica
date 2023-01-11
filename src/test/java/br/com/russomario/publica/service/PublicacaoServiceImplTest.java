@@ -52,7 +52,7 @@ public class PublicacaoServiceImplTest {
 
     @DisplayName("Deve retorna uma publicação quando passar um id")
     @Test
-    void buscaIdTeste_retornaUmaPublicacao_dadoUmId() {
+    void BuscaIdTeste_retornaUmaPublicacao_dadoUmId() {
 
         publicacao = new Publicacao("API Spring", usuario);
 
@@ -70,7 +70,7 @@ public class PublicacaoServiceImplTest {
 
     @DisplayName("Deve Retorna Uma Lista De Publicação")
     @Test
-    void buscaTodosTeste_retornaUmaListaDepublicacao() {
+    void BuscaTodosTeste_retornaUmaListaDepublicacao() {
         publicacao = new Publicacao("API Spring", usuario);
 
         when(repository.findAll()).thenReturn(List.of(publicacao));
@@ -85,7 +85,7 @@ public class PublicacaoServiceImplTest {
 
     @DisplayName("deve salvar uma Publicação")
     @Test
-    void salvarTeste_retornaUmaPublicacaoSalva_dadoUmaPublicacaoDTO() {
+    void SalvarTeste_retornaUmaPublicacaoSalva_dadoUmaPublicacaoDTO() {
 
         publicacaoRequestDTO = new PublicacaoRequestDTO("Api", (long) 1);
         publicacao = new Publicacao(publicacaoRequestDTO.getDescricao(), usuario);
