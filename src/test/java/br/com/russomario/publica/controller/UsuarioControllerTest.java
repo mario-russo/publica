@@ -44,8 +44,10 @@ public class UsuarioControllerTest {
 
         when(service.BuscaId(anyLong())).thenReturn(usuario);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/usuario/1")).andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.content()
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuario/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.content()
                         .json("{'id':1,'nome':'mario','email':'mario@mario','publicacao':[]}"));
     }
 
@@ -63,7 +65,8 @@ public class UsuarioControllerTest {
 
         when(service.listaTodos()).thenReturn(listaUsuario);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/usuario")).andExpect(MockMvcResultMatchers.status().isOk())
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuario"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.content().json(
                         "[{'id':1,'nome':'mario','email':'mario@mario','publicacao':[]},{'id':2,'nome':'mario','email':'mario@mario','publicacao':[]}]"));
