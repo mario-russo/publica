@@ -4,6 +4,7 @@ package br.com.russomario.publica.dominio.DTO.resposta;
 import br.com.russomario.publica.dominio.Mensagem;
 
 public class MensagemRespostaDTO {
+    
     private String conteudo;
     private Long id;
 
