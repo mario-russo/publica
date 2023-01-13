@@ -1,7 +1,6 @@
 package br.com.russomario.publica.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -15,6 +14,7 @@ import br.com.russomario.publica.repository.PublicacaoRepository;
 
 @Service
 public class PublicacaoServiceImpl implements PublicacaoService {
+
     private final PublicacaoRepository repository;
     private final UsuarioServiceImpl usuarioService;
 
@@ -39,9 +39,10 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
         Publicacao respostaPublicacao = repository.save(publicacao);
 
-        return new PublicacaoRespostaDTO(respostaPublicacao.getId(), respostaPublicacao.getDescricao(),
-                respostaPublicacao.getUsuario());
+        var publicacaoDTO = new PublicacaoRespostaDTO(respostaPublicacao.getId(), respostaPublicacao.getDescricao(),
+                usuario, null);
 
+        return publicacaoDTO;
     }
 
     /*
@@ -56,7 +57,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
         List<Publicacao> publicacao = repository.findAll();
 
         List<PublicacaoRespostaDTO> publicacaoDTO = publicacao.stream()
-                .map(x -> new PublicacaoRespostaDTO(x.getId(), x.getDescricao(), x.getUsuario()))
+                .map(x -> new PublicacaoRespostaDTO(x.getId(), x.getDescricao(), x.getUsuario(), x.getMensagem()))
                 .collect(Collectors.toList());
 
         return publicacaoDTO;
@@ -72,11 +73,19 @@ public class PublicacaoServiceImpl implements PublicacaoService {
     @Override
     public PublicacaoRespostaDTO buscaId(Long id) {
 
-        Optional<Publicacao> publicacao = repository.findById(id);
+        Publicacao publicacao = repository.findById(id).get();
 
-        PublicacaoRespostaDTO publica = new PublicacaoRespostaDTO(publicacao.get().getId(),
-                publicacao.get().getDescricao(), publicacao.get().getUsuario());
+        PublicacaoRespostaDTO publica = new PublicacaoRespostaDTO(
+                publicacao.getId(),
+                publicacao.getDescricao(),
+                publicacao.getUsuario(),
+                publicacao.getMensagem());
         return publica;
+    }
+
+    public Publicacao getPublicacao(long id) {
+        Publicacao publicaçao = repository.findById(id).get();
+        return publicaçao;
     }
 
 }
