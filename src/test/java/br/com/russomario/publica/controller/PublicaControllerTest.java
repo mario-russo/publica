@@ -36,7 +36,7 @@ public class PublicaControllerTest {
 
         Usuario usuario = new Usuario("mario", "mario@mario");
         Long id = (long) 1;
-        PublicacaoRespostaDTO publicacao = new PublicacaoRespostaDTO(id, "java online", usuario);
+        PublicacaoRespostaDTO publicacao = new PublicacaoRespostaDTO(id, "java online", usuario,null);
 
         when(service.buscaId(id)).thenReturn(publicacao);
 
@@ -51,8 +51,8 @@ public class PublicaControllerTest {
         Usuario usuario = new Usuario("mario", "mario@mario");
         Long id = (long) 1;
         Long id_2 = (long) 2;
-        PublicacaoRespostaDTO publicacao = new PublicacaoRespostaDTO(id, "java online", usuario);
-        PublicacaoRespostaDTO publicacao2 = new PublicacaoRespostaDTO(id_2, "java online", usuario);
+        PublicacaoRespostaDTO publicacao = new PublicacaoRespostaDTO(id, "java online", usuario, null);
+        PublicacaoRespostaDTO publicacao2 = new PublicacaoRespostaDTO(id_2, "java online", usuario,null);
 
         when(service.buscaTodos()).thenReturn(List.of(publicacao, publicacao2));
 
@@ -69,7 +69,7 @@ public class PublicaControllerTest {
         Long idUsuario = (long) 1;
         var publicaçao = new PublicacaoRequestDTO("java Estudos!", idUsuario);
         Usuario usuario = new Usuario("mario", "mario@mario");
-        var publicaçaoDTO = new PublicacaoRespostaDTO(idUsuario, "java estudos", usuario);
+        var publicaçaoDTO = new PublicacaoRespostaDTO(idUsuario, "java estudos", usuario,null);
 
         when(service.salvar(publicaçao)).thenReturn(publicaçaoDTO);
 

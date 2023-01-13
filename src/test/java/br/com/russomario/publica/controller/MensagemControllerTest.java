@@ -36,7 +36,7 @@ public class MensagemControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         Long id = (long) 1;
         MensagemRespostaDTO mensagemRespostaDTO = new MensagemRespostaDTO("falando de java", id);
-        MensagemRequestDTO mensagemRequestDTO = new MensagemRequestDTO("falando de java");
+        MensagemRequestDTO mensagemRequestDTO = new MensagemRequestDTO("falando de java",(long) 1,(long) 1);
 
         when(mensagemService.salvar(mensagemRequestDTO)).thenReturn(mensagemRespostaDTO);
 

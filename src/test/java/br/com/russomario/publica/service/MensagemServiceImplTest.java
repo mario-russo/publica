@@ -2,6 +2,7 @@ package br.com.russomario.publica.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.russomario.publica.dominio.Mensagem;
+import br.com.russomario.publica.dominio.Publicacao;
+import br.com.russomario.publica.dominio.Usuario;
 import br.com.russomario.publica.dominio.DTO.request.MensagemRequestDTO;
 import br.com.russomario.publica.dominio.DTO.resposta.MensagemRespostaDTO;
 import br.com.russomario.publica.repository.MensagemRepository;
@@ -24,23 +27,31 @@ public class MensagemServiceImplTest {
     @Mock
     MensagemRepository repository;
 
+    @Mock
+    PublicacaoServiceImpl publicacaoService;
+
+    @Mock
+    UsuarioServiceImpl usuarioService;
     @InjectMocks
     MensagemServiceIml service;
 
     @BeforeEach
     void inicio() {
         MockitoAnnotations.openMocks(this);
-        service = new MensagemServiceIml(repository);
+        service = new MensagemServiceIml(repository, publicacaoService, usuarioService);
 
     }
 
     @Test
     void SalvaMensagem_retornaMensagemDTO_dadoUmaMensagemDTO() {
+        Usuario usuario = new Usuario("mario", "mario@email");
 
-        MensagemRequestDTO mensagemRequestDTO = new MensagemRequestDTO("Resposta");
+        MensagemRequestDTO mensagemRequestDTO = new MensagemRequestDTO("Resposta", (long) 1, (long) 1);
         Mensagem mensagem = new Mensagem(mensagemRequestDTO.getConteudo());
+        Publicacao publicacao = new Publicacao("java", usuario);
 
         when(repository.save(any())).thenReturn(mensagem);
+        when(publicacaoService.getPublicacao(anyLong())).thenReturn(publicacao);
 
         MensagemRespostaDTO resposta = service.salvar(mensagemRequestDTO);
 
