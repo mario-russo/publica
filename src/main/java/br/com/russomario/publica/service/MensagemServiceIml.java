@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import br.com.russomario.publica.dominio.Mensagem;
+import br.com.russomario.publica.dominio.Publicacao;
+import br.com.russomario.publica.dominio.Usuario;
 import br.com.russomario.publica.dominio.DTO.request.MensagemRequestDTO;
 import br.com.russomario.publica.dominio.DTO.resposta.MensagemRespostaDTO;
 import br.com.russomario.publica.dominio.contrato.MensagemService;
@@ -14,10 +16,15 @@ import br.com.russomario.publica.repository.MensagemRepository;
 
 @Service
 public class MensagemServiceIml implements MensagemService {
-    private final MensagemRepository mensagemRepository;
 
-    public MensagemServiceIml(MensagemRepository mensagemRepository) {
+    private final MensagemRepository mensagemRepository;
+    private final PublicacaoServiceImpl publicacaoService;
+    private final UsuarioServiceImpl usuarioService;
+
+    public MensagemServiceIml(MensagemRepository mensagemRepository, PublicacaoServiceImpl publicacaoServiceImpl, UsuarioServiceImpl usuarioService) {
         this.mensagemRepository = mensagemRepository;
+        this.publicacaoService = publicacaoServiceImpl;
+        this.usuarioService = usuarioService;
     }
 
     /*
@@ -31,7 +38,14 @@ public class MensagemServiceIml implements MensagemService {
     @Override
     public MensagemRespostaDTO salvar(MensagemRequestDTO mensagemDto) {
 
+        Publicacao publicacao = publicacaoService.getPublicacao(mensagemDto.getPublicacaoId());
+        Usuario usuario = usuarioService.usuarioEntity(mensagemDto.getUsuarioId());
+
         Mensagem mensagem = new Mensagem(mensagemDto.getConteudo());
+
+        mensagem.setPublicacao(publicacao);
+        mensagem.setUsuario(usuario);
+
         var mensagemSalva = mensagemRepository.save(mensagem);
         var mensagemDTO = new MensagemRespostaDTO(mensagemSalva);
 
