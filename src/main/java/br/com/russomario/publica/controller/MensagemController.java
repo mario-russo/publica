@@ -27,7 +27,7 @@ public class MensagemController {
     
     @PostMapping
     public ResponseEntity<MensagemRespostaDTO> salvarMensagem(@RequestBody MensagemRequestDTO mensagemRequestDTO){
-        var mensagem =mensagemService.salvar(mensagemRequestDTO);
+        var mensagem = mensagemService.salvar(mensagemRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensagem);
     }
     @GetMapping
