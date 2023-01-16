@@ -1,5 +1,5 @@
 # Publicação
-![TESTE](https://github.com/mario-russo/publica/actions/workflows/teste.yml/badge.svg)
+![TESTE](https://github.com/mario-russo/publica/actions/workflows/test.yml/badge.svg)
 ![BUILD](https://github.com/mario-russo/publica/actions/workflows/build.yml/badge.svg)
 
 # Sobre o projeto
