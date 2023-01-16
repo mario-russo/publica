@@ -1,5 +1,6 @@
 # Publicação
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE) 
+![TESTE](https://github.com/mario-russo/publica/actions/workflows/test.yml/badge.svg)
+![BUILD](https://github.com/mario-russo/publica/actions/workflows/build.yml/badge.svg)
 
 # Sobre o projeto
 
