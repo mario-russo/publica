@@ -1,6 +1,9 @@
 package br.com.russomario.publica.dominio;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
@@ -8,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -23,7 +27,9 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "publicacao")
-public class Publicacao {
+public class Publicacao implements Serializable {
+
+    private final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +45,16 @@ public class Publicacao {
     @JsonBackReference
     private List<Mensagem> mensagem;
 
-    public Publicacao() {
+    @ManyToMany(mappedBy = "publicacao")
+    @JsonBackReference
+    Set<Reacoes> reacoes = new HashSet<>();
+
+    /**
+     * @return
+     *         serialVersionUID
+     */
+    public long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     /**
@@ -49,6 +64,26 @@ public class Publicacao {
     public Publicacao(String descricao, Usuario usuario) {
         this.descricao = descricao;
         this.usuario = usuario;
+    }
+
+    /**
+     * 
+     */
+    public Publicacao() {
+    }
+
+    /**
+     * @return Reacoes
+     */
+    public Set<Reacoes> getReacoes() {
+        return reacoes;
+    }
+
+    /**
+     * @param reacoes
+     */
+    public void setReacoes(Set<Reacoes> reacoes) {
+        this.reacoes = reacoes;
     }
 
     /**

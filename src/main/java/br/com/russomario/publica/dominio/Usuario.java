@@ -1,6 +1,9 @@
 package br.com.russomario.publica.dominio;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -11,6 +14,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -25,7 +29,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
+    private final long serialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +44,21 @@ public class Usuario {
     @JsonIgnore
     private List<Publicacao> publicacao;
 
+    @ManyToMany(mappedBy = "usuario")
+    @JsonManagedReference
+    @JsonIgnore
+    Set<Reacoes> reacoes = new HashSet<>();
+
+
     public Usuario() {
+    }
+    
+
+    /**
+     * @return serialVersionUID
+     */
+    public long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     /**
