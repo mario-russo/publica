@@ -1,112 +1,82 @@
 package br.com.russomario.publica.dominio;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+// import java.io.Serializable;
 
 import br.com.russomario.publica.dominio.enumeracoes.ReacoesType;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Reacoes implements Serializable {
+public class Reacoes{
 
-    private final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @EmbeddedId
+    @Column(insertable=false, updatable=false)
+    private ReacoesPk id = new ReacoesPk();
 
-    ReacoesType tipo;
-
-    @ManyToMany(mappedBy = "")
-    @JsonBackReference
-    Set<Usuario> usuario = new HashSet<>();
-
-    @ManyToMany(mappedBy = "reacoes")
-    @JsonBackReference
-    Set<Publicacao> publicacao = new HashSet<>();
-
-    public Reacoes(long id, ReacoesType tipo, Set<Usuario> usuario, Set<Publicacao> publicacao) {
-        this.id = id;
-        this.tipo = tipo;
-        this.usuario = usuario;
-        this.publicacao = publicacao;
-    }
+    ReacoesType reacoesType;
 
     public Reacoes() {
     }
 
-    /**
-     * @return id
-     */
-    public long getId() {
-        return id;
+    public Reacoes(ReacoesType reacoesType, Publicacao publicacao, Usuario usuario) {
+        this.reacoesType = reacoesType;
+        this.id.setPublicacao(publicacao);
+        this.id.setUsuario(usuario);
     }
 
-    /**
-     * @param id
-     */
-    public void setId(long id) {
-        this.id = id;
+    public Usuario getUsuario() {
+        return this.id.getUsuario();
     }
 
-    /**
-     * @return ReacoesType
-     */
-    public ReacoesType getTipo() {
-        return tipo;
+    public void setUsuario(Usuario usuario) {
+        this.id.setUsuario(usuario);
     }
 
-    /**
-     * @param tipo
-     */
-   
-
-    public long getSerialVersionUID() {
-        return serialVersionUID;
+    public Publicacao getPublicacao() {
+        return this.id.getPublicacao();
     }
 
-    /**
-     * @param tipo
-     */
-    public void setTipo(ReacoesType tipo) {
-        this.tipo = tipo;
+    public void setPublicacao(Publicacao publicacao) {
+        this.id.setPublicacao(publicacao);
     }
 
-    /**
-     * @return Usuario
-     */
-    public Set<Usuario> getUsuario() {
-        return usuario;
+    public ReacoesType getReacoesType() {
+        return reacoesType;
     }
 
-    /**
-     * @param usuario
-     */
-    public void setUsuario(Set<Usuario> usuario) {
-        this.usuario = usuario;
+    public void setReacoesType(ReacoesType reacoesType) {
+        this.reacoesType = reacoesType;
     }
 
-    /**
-     * @return Publicacao
-     */
-    public Set<Publicacao> getPublicacao() {
-        return publicacao;
+    // public long getSerialVersionUID() {
+    //     return serialVersionUID;
+    // }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
-    /**
-     * @param publicacao
-     */
-    public void setPublicacao(Set<Publicacao> publicacao) {
-        this.publicacao = publicacao;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Reacoes other = (Reacoes) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
-
-    
 
 }
