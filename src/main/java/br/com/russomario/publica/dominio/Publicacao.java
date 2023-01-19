@@ -1,7 +1,5 @@
 package br.com.russomario.publica.dominio;
 
-import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,9 +25,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "publicacao")
-public class Publicacao implements Serializable {
-
-    private final long serialVersionUID = 1L;
+public class Publicacao  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,17 +41,11 @@ public class Publicacao implements Serializable {
     @JsonBackReference
     private List<Mensagem> mensagem;
 
-    @OneToMany(mappedBy = "id.publicacao" )
+    @OneToMany(mappedBy = "publicacao" )
     @JsonBackReference
-    private  Set<Reacoes> reacoes = new HashSet<>();
+    private  Set<Reacoes> reacoes;
 
-    /**
-     * @return
-     *         serialVersionUID
-     */
-    public long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+ 
 
     /**
      * @param descricao

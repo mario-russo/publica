@@ -1,6 +1,5 @@
 package br.com.russomario.publica.dominio;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,8 +27,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario implements Serializable {
-    private final long serialVersionUID = 1L;
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,19 +40,12 @@ public class Usuario implements Serializable {
     @JsonIgnore
     private List<Publicacao> publicacao;
 
-    @OneToMany(mappedBy = "id.usuario" )
+    @OneToMany(mappedBy = "usuario")
     @JsonManagedReference
     @JsonIgnore
     private Set<Reacoes> reacoes = new HashSet<>();
 
     public Usuario() {
-    }
-
-    /**
-     * @return serialVersionUID
-     */
-    public long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     /**

@@ -40,7 +40,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
         Publicacao respostaPublicacao = repository.save(publicacao);
 
         var publicacaoDTO = new PublicacaoRespostaDTO(respostaPublicacao.getId(), respostaPublicacao.getDescricao(),
-                usuario, null);
+                usuario, null, respostaPublicacao.getReacoes());
 
         return publicacaoDTO;
     }
@@ -57,7 +57,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
         List<Publicacao> publicacao = repository.findAll();
 
         List<PublicacaoRespostaDTO> publicacaoDTO = publicacao.stream()
-                .map(x -> new PublicacaoRespostaDTO(x.getId(), x.getDescricao(), x.getUsuario(), x.getMensagem()))
+                .map(x -> new PublicacaoRespostaDTO(x.getId(), x.getDescricao(), x.getUsuario(), x.getMensagem(),x.getReacoes()))
                 .collect(Collectors.toList());
 
         return publicacaoDTO;
@@ -79,7 +79,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
                 publicacao.getId(),
                 publicacao.getDescricao(),
                 publicacao.getUsuario(),
-                publicacao.getMensagem());
+                publicacao.getMensagem(),
+                publicacao.getReacoes()
+                );
         return publica;
     }
 

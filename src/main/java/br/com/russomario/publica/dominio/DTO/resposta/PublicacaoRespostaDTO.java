@@ -2,8 +2,10 @@ package br.com.russomario.publica.dominio.DTO.resposta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import br.com.russomario.publica.dominio.Mensagem;
+import br.com.russomario.publica.dominio.Reacoes;
 import br.com.russomario.publica.dominio.Usuario;
 /**
  * Classe de resposta de Publicação
@@ -15,20 +17,28 @@ import br.com.russomario.publica.dominio.Usuario;
     -String descricao;
     -Usuario usuario;
  */
-public class PublicacaoRespostaDTO {
+public class  PublicacaoRespostaDTO {
     private Long id;
 
     private String descricao;
     private Usuario usuario;
     private List<Mensagem> mensagem = new ArrayList<>();
+    private Set<Reacoes> reacoes ; 
+    
 
 
-    public PublicacaoRespostaDTO( Long id, String descricao, Usuario usuario, List<Mensagem> mensagem) {
+
+    public PublicacaoRespostaDTO( Long id, String descricao, Usuario usuario, List<Mensagem> mensagem, Set<Reacoes> reacoes) {
         this.id = id;
         setDescricao(descricao); 
         setUsuario(usuario);
         setMensagem(mensagem);
+        setReacoes(reacoes);
     }
+
+    public PublicacaoRespostaDTO() {
+    }
+
 
     /**
      * @return
@@ -74,5 +84,13 @@ public class PublicacaoRespostaDTO {
         this.usuario = usuario;
     }
     
+    
+    public Set<Reacoes> getReacoes() {
+        return reacoes;
+    }
+
+    public void setReacoes(Set<Reacoes> reacoes) {
+        this.reacoes = reacoes;
+    }
 
 }

@@ -1,25 +1,28 @@
 package br.com.russomario.publica.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.russomario.publica.dominio.Reacoes;
-import br.com.russomario.publica.repository.ReacoesRepository;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import br.com.russomario.publica.dominio.DTO.request.ReacoesRequestDTO;
+import br.com.russomario.publica.dominio.DTO.resposta.ReacoesRepostaDto;
+import br.com.russomario.publica.service.ReacoesServiceImpl;
 @RestController
 @RequestMapping("/reacoes")
 public class ReacoesController {
-    private final ReacoesRepository reacoesRepository;
 
-    public ReacoesController(ReacoesRepository reacoesRepository) {
-        this.reacoesRepository = reacoesRepository;
+    private final ReacoesServiceImpl serviceImpler;
+
+
+    public ReacoesController(ReacoesServiceImpl service) {
+        this.serviceImpler = service;
     }
 
     @PostMapping
-    public Reacoes salva (@RequestBody Reacoes reacoes){
-
-        return reacoesRepository.save(reacoes);
+    public ReacoesRepostaDto salva (@RequestBody ReacoesRequestDTO reacoes){
+        ReacoesRepostaDto reacoeSalva = serviceImpler.salvar(reacoes);
+        return reacoeSalva;
 
     }
     

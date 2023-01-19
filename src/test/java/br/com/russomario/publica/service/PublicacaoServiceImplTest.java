@@ -32,6 +32,8 @@ public class PublicacaoServiceImplTest {
 
     @Mock
     UsuarioServiceImpl usuarioService;
+    @Mock
+    ReacoesServiceImpl reacoesServiceImpl;
 
     @InjectMocks
     private PublicacaoServiceImpl publicacaoServiceImpl;
