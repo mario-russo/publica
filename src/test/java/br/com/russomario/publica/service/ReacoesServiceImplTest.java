@@ -19,6 +19,7 @@ import br.com.russomario.publica.dominio.Reacoes;
 import br.com.russomario.publica.dominio.Usuario;
 import br.com.russomario.publica.dominio.DTO.request.ReacoesRequestDTO;
 import br.com.russomario.publica.dominio.DTO.resposta.ReacoesRepostaDto;
+import br.com.russomario.publica.dominio.enumeracoes.ReacoesType;
 import br.com.russomario.publica.repository.ReacoesRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,14 +39,13 @@ public class ReacoesServiceImplTest {
     private Reacoes reacoes;
     private Usuario usuario;
     private Publicacao publicacao;
-    private ReacoesRepostaDto reacoesRepostaDto;
     private ReacoesRequestDTO reacoesRequestDTO ;
     
 
-    // @Test
-    // void testListaTodos() {
+    @Test
+    void testListaTodos() {
 
-    // }
+    }
 
     @Test
     @DisplayName("Deve Salvar uma Reação e retorna um dto")
@@ -65,13 +65,12 @@ public class ReacoesServiceImplTest {
     void inicio() {
         MockitoAnnotations.openMocks(this);
 
-        // servico = new ReacoesServiceImpl(reacoesRepository, usuarioServiceImpl, publicacaoServiceImpl);
+        servico = new ReacoesServiceImpl(reacoesRepository, usuarioServiceImpl, publicacaoServiceImpl);
         
-        // reacoes = new Reacoes(publicacao, usuario, ReacoesType.AMEI);
-        // usuario= new Usuario("mario", "email@email");
-        // publicacao = new Publicacao("estudando java", usuario);
+        reacoes = new Reacoes(publicacao, usuario, ReacoesType.AMEI);
+        usuario= new Usuario("mario", "email@email");
+        publicacao = new Publicacao("estudando java", usuario);
 
-        // reacoesRepostaDto = new ReacoesRepostaDto(reacoes);
-        // reacoesRequestDTO = new ReacoesRequestDTO(anyLong(), anyLong(), ReacoesType.APOIO);
+        reacoesRequestDTO = new ReacoesRequestDTO((long)1, (long) 1, ReacoesType.APOIO);
     }
 }
