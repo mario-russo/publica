@@ -74,7 +74,7 @@ public class ReacoesControllerTest {
 
     @BeforeEach
     void setup() {
-        usuario = new Usuario("mario", "email@email");
+        usuario = new Usuario("mario", "email@email","'1234");
         publicacao = new Publicacao("estudando java", usuario);
         reacoes = new Reacoes(publicacao, usuario, ReacoesType.AMEI);
         reacoesRepostaDto = new ReacoesRepostaDto(reacoes);

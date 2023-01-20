@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.russomario.publica.dominio.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    public Usuario findByEmail();
 }

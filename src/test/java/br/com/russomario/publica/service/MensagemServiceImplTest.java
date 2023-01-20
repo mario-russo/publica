@@ -44,7 +44,7 @@ public class MensagemServiceImplTest {
 
     @Test
     void SalvaMensagem_retornaMensagemDTO_dadoUmaMensagemDTO() {
-        Usuario usuario = new Usuario("mario", "mario@email");
+        Usuario usuario = new Usuario("mario", "mario@email","1234");
 
         MensagemRequestDTO mensagemRequestDTO = new MensagemRequestDTO("Resposta", (long) 1, (long) 1);
         Mensagem mensagem = new Mensagem(mensagemRequestDTO.getConteudo());

@@ -38,7 +38,7 @@ public class UsuarioServiceImplTest {
     @BeforeEach
     void inicio() {
         MockitoAnnotations.openMocks(this);
-        usuario = new Usuario("mario", "mario@email");
+        usuario = new Usuario("mario", "mario@email","1233");
         usuarioServiceImpl = new UsuarioServiceImpl(repository);
 
         usuarioRequestDTO = new UsuarioRequestDTO(usuario.getNome(), usuario.getEmail());

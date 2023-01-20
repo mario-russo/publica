@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import br.com.russomario.publica.dominio.enumeracoes.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,6 +35,8 @@ public class Usuario {
     private Long id;
     private String nome;
     private String email;
+    private String senha;
+    private Role role;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -52,9 +55,10 @@ public class Usuario {
      * @param nome
      * @param email
      */
-    public Usuario(String nome, String email) {
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
     }
 
     /**
@@ -102,6 +106,18 @@ public class Usuario {
 
     public void setPublicacao(List<Publicacao> publicacao) {
         this.publicacao = publicacao;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     @Override

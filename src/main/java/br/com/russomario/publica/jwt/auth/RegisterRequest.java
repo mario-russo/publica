@@ -1,16 +1,17 @@
-package br.com.russomario.publica.dominio.DTO.request;
+package br.com.russomario.publica.jwt.auth;
 
-public class UsuarioRequestDTO {
+public class RegisterRequest {
     private String nome;
     private String email;
     private String senha;
 
-    public UsuarioRequestDTO(String nome, String email) {
-        this.nome = nome;
-        this.email = email;
+    public RegisterRequest() {
     }
 
-    public UsuarioRequestDTO() {
+    public RegisterRequest(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
     }
 
     public String getNome() {
@@ -29,12 +30,12 @@ public class UsuarioRequestDTO {
         this.email = email;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getSenha() {
         return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 }
