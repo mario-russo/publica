@@ -48,7 +48,7 @@ public class PublicacaoServiceImplTest {
 
         publicacaoServiceImpl = new PublicacaoServiceImpl(repository, usuarioService);
 
-        usuario = new Usuario("mario", "mario@email");
+        usuario = new Usuario("mario", "mario@email","1234");
 
     }
 

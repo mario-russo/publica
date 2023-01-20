@@ -85,7 +85,7 @@ public class ReacoesServiceImplTest {
         servico = new ReacoesServiceImpl(reacoesRepository, usuarioServiceImpl, publicacaoServiceImpl);
         
         reacoes = new Reacoes(publicacao, usuario, ReacoesType.AMEI);
-        usuario= new Usuario("mario", "email@email");
+        usuario= new Usuario("mario", "email@email","1234");
         publicacao = new Publicacao("estudando java", usuario);
 
         reacoesRequestDTO = new ReacoesRequestDTO((long)1, (long) 1, ReacoesType.APOIO);

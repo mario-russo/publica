@@ -25,7 +25,7 @@ import br.com.russomario.publica.service.PublicacaoServiceImpl;
 
 @WebMvcTest(PublicaController.class)
 public class PublicaControllerTest {
-    @Autowired
+    @Autowired  
     private MockMvc mockmvc;
 
     @MockBean
@@ -34,7 +34,7 @@ public class PublicaControllerTest {
     @Test
     void BuscaId_retornaPublicacaoDTO_dadoUmId() throws Exception {
 
-        Usuario usuario = new Usuario("mario", "mario@mario");
+        Usuario usuario = new Usuario("mario", "mario@mario","1234");
         Long id = (long) 1;
         PublicacaoRespostaDTO publicacao = new PublicacaoRespostaDTO(id, "java online", usuario,null,null);
 
@@ -48,7 +48,7 @@ public class PublicaControllerTest {
     @Test
     void ListaTodos_retornaLIstaDePublicacaoDTO() throws Exception {
 
-        Usuario usuario = new Usuario("mario", "mario@mario");
+        Usuario usuario = new Usuario("mario", "mario@mario","senha");
         Long id = (long) 1;
         Long id_2 = (long) 2;
         PublicacaoRespostaDTO publicacao = new PublicacaoRespostaDTO(id, "java online", usuario, null,null);
@@ -68,7 +68,7 @@ public class PublicaControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         Long idUsuario = (long) 1;
         var publicaçao = new PublicacaoRequestDTO("java Estudos!", idUsuario);
-        Usuario usuario = new Usuario("mario", "mario@mario");
+        Usuario usuario = new Usuario("mario", "mario@mario","senha");
         var publicaçaoDTO = new PublicacaoRespostaDTO(idUsuario, "java estudos", usuario,null,null);
 
         when(service.salvar(publicaçao)).thenReturn(publicaçaoDTO);
