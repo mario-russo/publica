@@ -1,6 +1,9 @@
 package br.com.russomario.publica.service;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import br.com.russomario.publica.dominio.Publicacao;
@@ -39,8 +42,14 @@ public class ReacoesServiceImpl implements ReacoesService {
     }
 
     @Override
-    public ReacoesRepostaDto listaTodos() {
-        return null;
+    public List<ReacoesRepostaDto> listaTodos() {
+         
+        var reacoes = reacoesRepository.findAll();
+
+         List<ReacoesRepostaDto> reacoesDTO = reacoes.stream()
+                    .map(item -> new ReacoesRepostaDto(item))
+                    .collect(Collectors.toList());
+        return reacoesDTO;
     }
 
 }
