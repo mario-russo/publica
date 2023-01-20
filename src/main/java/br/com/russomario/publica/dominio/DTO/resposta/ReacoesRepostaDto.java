@@ -5,7 +5,7 @@ import br.com.russomario.publica.dominio.Reacoes;
 import br.com.russomario.publica.dominio.Usuario;
 import br.com.russomario.publica.dominio.enumeracoes.ReacoesType;
 
-public class    ReacoesRepostaDto {
+public class ReacoesRepostaDto {
     private Usuario usuario;
     private Publicacao publicacao;
     private ReacoesType reacoesType;
