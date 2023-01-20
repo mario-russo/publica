@@ -2,7 +2,10 @@ package br.com.russomario.publica.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +46,19 @@ public class ReacoesServiceImplTest {
     
 
     @Test
-    void testListaTodos() {
+    void ListaTodos_retornaTodasReacoes() {
+        
+        Reacoes reacoes = new Reacoes(publicacao, usuario, ReacoesType.AMEI);
+        Reacoes reacoes2 = new Reacoes(publicacao, usuario, ReacoesType.APOIO);
+        // List<Reacoes> lista ;
+
+        when(reacoesRepository.findAll()).thenReturn(List.of(reacoes,reacoes2));
+
+        var resposta = servico.listaTodos();
+
+        assertEquals(ReacoesRepostaDto.class, resposta.get(0).getClass());
+        assertEquals(2, resposta.size());
+        verify(reacoesRepository).findAll();
 
     }
 
@@ -59,6 +74,8 @@ public class ReacoesServiceImplTest {
         var reacoes = servico.salvar(reacoesRequestDTO);
 
         assertEquals(ReacoesRepostaDto.class, reacoes.getClass());
+
+        verify(reacoesRepository).save(ArgumentMatchers.any());
     }
 
     @BeforeEach
