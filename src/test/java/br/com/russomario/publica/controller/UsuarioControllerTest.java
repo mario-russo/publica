@@ -75,7 +75,7 @@ public class UsuarioControllerTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        var requestDTO = new UsuarioRequestDTO("mario", "mario@mario");
+        var requestDTO = new UsuarioRequestDTO("mario", "mario@mario","senha");
         Long id = (long) 1;
         List<Publicacao> publicacao = new ArrayList<Publicacao>();
         var usuario = new UsuarioRespostaDTO(id, requestDTO.getNome(), requestDTO.getEmail(), publicacao);

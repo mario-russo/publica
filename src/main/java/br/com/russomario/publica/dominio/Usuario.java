@@ -13,6 +13,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -34,6 +37,7 @@ public class Usuario {
     private Long id;
     private String nome;
     private String email;
+    private String senha;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -45,6 +49,10 @@ public class Usuario {
     @JsonIgnore
     private Set<Reacoes> reacoes = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> role;
+
     public Usuario() {
     }
 
@@ -52,11 +60,16 @@ public class Usuario {
      * @param nome
      * @param email
      */
+    public Usuario(String nome, String email,List<Role> role, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.role = role;
+        this.senha = senha;
+    }
     public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
     }
-
     /**
      * @return id
      */
@@ -102,6 +115,22 @@ public class Usuario {
 
     public void setPublicacao(List<Publicacao> publicacao) {
         this.publicacao = publicacao;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public List<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(List<Role> set) {
+        this.role = set;
     }
 
     @Override

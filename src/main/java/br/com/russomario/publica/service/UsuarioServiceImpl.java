@@ -30,7 +30,7 @@ public class UsuarioServiceImpl implements UsuarioService {
      */
     @Override
     public UsuarioRespostaDTO salvar(UsuarioRequestDTO usuarioDto) throws Exception {
-
+        
         Usuario usuario = new Usuario(usuarioDto.getNome(), usuarioDto.getEmail());
         Usuario usuarioSalvo = repository.save(usuario);
 

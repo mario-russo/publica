@@ -41,7 +41,7 @@ public class UsuarioServiceImplTest {
         usuario = new Usuario("mario", "mario@email");
         usuarioServiceImpl = new UsuarioServiceImpl(repository);
 
-        usuarioRequestDTO = new UsuarioRequestDTO(usuario.getNome(), usuario.getEmail());
+        usuarioRequestDTO = new UsuarioRequestDTO(usuario.getNome(), usuario.getEmail(),"1234");
         usuarioRespostaDTO = new UsuarioRespostaDTO(usuario.getId(), usuario.getNome(), usuario.getEmail(),
                 usuario.getPublicacao());
     }
